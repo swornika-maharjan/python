@@ -4,11 +4,15 @@ from pydantic import BaseModel, Field
 from bson import ObjectId
 from typing import Optional
 import certifi
+from dotenv import load_dotenv
+import os
 
 app = FastAPI()
 
+load_dotenv()
+
 # MongoDB Atlas connection — replace with your actual Atlas URI
-MONGO_URL = "mongodb+srv://swornika:shree1234@swornika.dd3ejow.mongodb.net/?appName=swornika"
+MONGO_URL = os.getenv("MONGO_URL")
 client = AsyncIOMotorClient(MONGO_URL, tlsCAFile=certifi.where())
 db = client["mydb"]
 collection = db["items"]
